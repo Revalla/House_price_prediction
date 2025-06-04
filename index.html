@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>House Price Predictor</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="background">
+        <div class="card">
+            <h1>🏡 Predict House Price</h1>
+            <form method="POST">
+                {% for field in [
+                    "bedrooms", "bathrooms", "sqft_living", "sqft_lot", "floors", "waterfront",
+                    "view", "condition", "grade", "sqft_above", "sqft_basement", "yr_built",
+                    "yr_renovated", "zipcode", "lat", "long", "sqft_living15", "sqft_lot15"] %}
+                    
+                    <div class="form-group">
+                        <label>{{ field.replace('_', ' ').title() }}</label>
+                        <input type="number" name="{{ field }}" step="any" required>
+                    </div>
+                {% endfor %}
+                
+                <button type="submit">🔮 Predict Now</button>
+            </form>
+
+            {% if prediction is not none %}
+                <div class="result">
+                    <h2>Estimated Price:</h2>
+                    <p><strong>${{ prediction }}</strong></p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
